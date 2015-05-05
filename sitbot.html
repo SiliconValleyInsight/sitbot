@@ -18,22 +18,18 @@
         width: 400px;
         padding: 20px;
       }
+      .hidden {
+        display: none;
+      }
     </style>
     <script type="text/javascript" src="jquery.min.js"></script>
-
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-    <script src="popup.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
   </head>
   <body>
     <div class="container">
-      <h1>Welcome to SitBot!</h1>
+      <h1>Welcome to Sitbot!</h1>
       <p>
-        Use the form belom to search for GitHub profiles!
+        Use the form below to search for GitHub profiles!
       </p>
       <form id="github-form">
         <input type="text" name="location" placeholder="Location...">
@@ -45,7 +41,12 @@
         </select>
         <input type="submit">
       </form>
-      <button id="scrape-button">Scrape!</button>
+      <button id="scrape-button">Start Scraping!</button>
+      <div class="progress" class="hidden">
+        <span class="progress__current_page">0</span>
+        /
+        <span class="progress__total_pages">0</span>
+      </div>
     </div>
   </body>
 </html>
