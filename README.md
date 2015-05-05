@@ -1,5 +1,7 @@
 # sitbot
 
+![sitbot screenshot](http://f.cl.ly/items/3h2I3f1t303T3Z2X3M1D/Screen%20Shot%202015-05-05%20at%2012.22.05%20AM.png)
+
 ## Download
 
 [Click here](http://cl.ly/arfU) to download the latest version.
