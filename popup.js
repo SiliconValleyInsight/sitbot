@@ -67,17 +67,29 @@ SITBOT_EXTENSION = (function() {
       window.setTimeout(injectContentScripts,3000);
   }
 
-  function initProgressIndicator(total_pages) {
-    progress = $('.progress');
-    progress.removeClass('hidden');
-    progress.find('.progress__total_pages').text(total_pages);
+  function initProgressIndicator(current_page, total_pages) {
+    progress = {
+      current_page: current_page,
+      total_pages: total_pages,
+      button: $('#scrape-button'),
+      text: $('#scrape-button .btn-text')
+    }
+    progress.button.addClass('spinner--active');
   }
 
   function updateProgressIndicator(data) {
     if(typeof(progress) == "undefined") {
       initProgressIndicator(data.total_pages);
     }
-    progress.find('.progress__current_page').text(data.current_page);
+    progress.current_page = data.current_page;
+    progress.total_pages = data.total_pages;
+    var text = progress.current_page + " pages out of " + progress.total_pages;
+    progress.text.text(text);
+  }
+
+  function removeProgressIndicator(text) {
+    progress.text.text(text);
+    progress.button.removeClass('spinner--active');
   }
 
   function generateDownloadLink(data) {
@@ -87,16 +99,14 @@ SITBOT_EXTENSION = (function() {
 
     var data_blob = new Blob([data], {type: MIME_TYPE});
 
-    var a = document.createElement('a');
+    var a = progress.button[0];
 
     a.download = 'sitbot_results.csv';
     a.href = window.URL.createObjectURL(data_blob);
-    a.textContent = 'Download ready';
 
+    removeProgressIndicator('Download Results');
     a.dataset.downloadurl = [MIME_TYPE, a.download, a.href].join(':');
     a.draggable = true; // Don't really need, but good practice.
-
-    $('.container').append(a);
   }
 
   function processAndShowResults() {

@@ -11,6 +11,7 @@
     "scripts": ["jquery.min.js", "bootstrap.js"],
     "persistent": false
   },
+  "icons": { "160": "icon.png"},
   "web_accessible_resources": [
     "jquery.min.map"
   ],

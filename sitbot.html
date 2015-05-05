@@ -8,29 +8,118 @@
   <head>
     <title>Getting Started Extension's Popup</title>
     <style>
+      @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700);
+      html {
+        background-color: #EFEFF0;
+      }
       body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-family: "Source Sans Pro", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
+        margin: 0px;
+      }
+      .logo {
+        max-width: 100px;
+        max-height: 100px;
+        display: block;
+        margin: auto;
+      }
+      h1 {
+        text-align: center;
       }
       .container {
         /* avoid an excessively wide status text */
         overflow: hidden;
-        width: 400px;
-        padding: 20px;
+        width: 260px;
+        padding: 10px;
       }
       .hidden {
         display: none;
       }
+      input, select, button, .button {
+        font-family: "Source Sans Pro";
+        display: block;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        border: none;
+        font-size: 16px;
+        font-weight: 300;
+        border: 1px solid #FFF;
+        background-color: #FFF;
+        -webkit-appearance: none;
+      }
+      select {
+        background: url('arrow.png') 96% no-repeat #FFF;
+      }
+      input:focus {
+        border: 1px solid #24ADE9;
+      }
+      .button {
+        color: #FFFFFF;
+        border: 1px solid #24ADE9;
+        background-color: #25ADE9;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .button:hover {
+        background-color: #0C94D0;
+        border: 1px solid #0C94D0;
+      }
+      .button:active {
+        background-color: #007AB6;
+        border: 1px solid #007AB6;
+      }
+      *:focus {
+          outline: 0;
+      }
+
+    .spinner {
+      display: none;
+      height: 14px;
+    }
+
+    .spinner__circle {
+      height: 16px;
+      width: 16px;
+      margin-left: 20px;
+
+      -webkit-animation: rotation .6s infinite cubic-bezier(.12,.52,.47,.81);
+      -moz-animation: rotation .6s infinite cubic-bezier(.18, .51, .64, .39);
+      -o-animation: rotation .6s infinite cubic-bezier(.18, .51, .64, .39);
+      animation: rotation .6s infinite cubic-bezier(.18, .51, .64, .39);
+
+      border-left: 3px solid rgba(239, 239, 240, .25);
+      border-top: 3px solid rgba(239, 239, 240, .25);
+      border-bottom: 3px solid rgba(239, 239, 240, .25);
+      border-right: 3px solid rgba(239, 239, 240, 1);
+
+      border-radius: 100%;
+    }
+
+    .spinner--active .spinner {
+      display: inline-block;
+    }
+
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
     </style>
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="popup.js"></script>
   </head>
   <body>
     <div class="container">
-      <h1>Welcome to Sitbot!</h1>
-      <p>
-        Use the form below to search for GitHub profiles!
-      </p>
+      <img class="logo" src="/icon.png">
+      <h3>Search GitHub users</h3>
       <form id="github-form">
         <input type="text" name="location" placeholder="Location...">
         <input type="text" name="language" placeholder="Language...">
@@ -39,14 +128,15 @@
           <option value="">Best Match</option>
           <option value="repositories">Most Repositories</option>
         </select>
-        <input type="submit">
+        <input class="button" type="submit">
       </form>
-      <button id="scrape-button">Start Scraping!</button>
-      <div class="progress" class="hidden">
-        <span class="progress__current_page">0</span>
-        /
-        <span class="progress__total_pages">0</span>
-      </div>
+      <h3>Scrape GitHub users</h3>
+      <a id="scrape-button" class="button">
+        <span class="btn-text">Start Scraping!</span>
+        <div class="spinner spinner--active ">
+          <div class="spinner__circle"></div>
+        </div>
+      </a>
     </div>
   </body>
 </html>

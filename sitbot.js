@@ -1,5 +1,5 @@
 SITBOT_CRAWLER = (function () {
-  var total_pages;
+  var status;
   var cur_page = 1;
   var new_results_arrived = false;
 
