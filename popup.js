@@ -1,6 +1,7 @@
 SITBOT_EXTENSION = (function() {
   var profiles = {}
   var progress;
+  var scraping = false;
 
   function changeUrl(url) {
     chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
@@ -42,6 +43,9 @@ SITBOT_EXTENSION = (function() {
   }
 
   function startScraping(){
+    if (scraping) {
+      return;
+    }
     //chrome.runtime.sendMessage({type: "start_scraping"});
     chrome.tabs.executeScript(null, {file: "jquery.min.js"});
     chrome.tabs.executeScript(null, {file: "sitbot.js"});
