@@ -8,7 +8,7 @@
 
 ## Installation
 
-1. Download the extension. It will be saved as `sitbot.crc`
+1. Download the extension. It will be saved as `sitbot.crx`
 
 2. Open Chrome and go to [chrome://extensions/](chrome://extensions/)
 
