@@ -1,7 +1,9 @@
 SITBOT_EXTENSION = (function() {
   var profiles = {}
+
   var progress;
   var scraping = false;
+
 
   function changeUrl(url) {
     chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
@@ -42,48 +44,73 @@ SITBOT_EXTENSION = (function() {
     return json;
   }
 
-  function startScraping(){
+  function startScraping(e){
+    var el_id;
+    if (e.target.id) {
+      el_id = e.target.id;
+    } else {
+      el_id = e.target.parentElement.id;
+    }
+
     if (scraping) {
       return;
+    } else {
+      scraping = true;
     }
+
     //chrome.runtime.sendMessage({type: "start_scraping"});
     chrome.tabs.executeScript(null, {file: "jquery.min.js"});
-    chrome.tabs.executeScript(null, {file: "sitbot.js"});
+    if (el_id == 'scrape-github') {
+      chrome.tabs.executeScript(null, {file: "GitHubScraper.js"});
+    } else if (el_id == 'scrape-behance') {
+      chrome.tabs.executeScript(null, {file: "BehanceScraper.js"});
+      var data = {
+        current_page: 1,
+        total_pages: 1,
+      }
+      updateProgressIndicator(data, '#scrape-behance');
+    }
 
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
-        if (request.type == 'scraped_profiles') {
-          saveProfileBatch(request);
+        if (request.type == 'scraped_profiles_github') {
+          saveGitHubProfileBatch(request);
+        } else if (request.type == 'scraped_profiles_behance') {
+          saveBehanceProfiles(request);
         }
         return;
       });
   }
 
-  function saveProfileBatch(data) {
-      //alert("I received the following DOM content:\n" + element);
+  function saveBehanceProfiles(data) {
+    profiles = data.profiles;
+    processAndShowBehanceResults();
+  }
+
+  function saveGitHubProfileBatch(data) {
       profiles[data.current_page] = data.profiles;
-      updateProgressIndicator(data);
+      updateProgressIndicator(data, '#scrape-github');
       if (data.current_page == data.total_pages) {
-        processAndShowResults();
+        processAndShowGitHubResults();
         return;
       }
       changeUrl(data.next_page_URL);
       window.setTimeout(injectContentScripts,3000);
   }
 
-  function initProgressIndicator(current_page, total_pages) {
+  function initProgressIndicator(total_pages, button_id) {
     progress = {
-      current_page: current_page,
+      current_page: 1,
       total_pages: total_pages,
-      button: $('#scrape-button'),
-      text: $('#scrape-button .btn-text')
+      button: $(button_id),
+      text: $(button_id + ' .btn-text')
     }
     progress.button.addClass('spinner--active');
   }
 
-  function updateProgressIndicator(data) {
+  function updateProgressIndicator(data, button_id) {
     if(typeof(progress) == "undefined") {
-      initProgressIndicator(data.total_pages);
+      initProgressIndicator(data.total_pages, button_id);
     }
     progress.current_page = data.current_page;
     progress.total_pages = data.total_pages;
@@ -113,18 +140,28 @@ SITBOT_EXTENSION = (function() {
     a.draggable = true; // Don't really need, but good practice.
   }
 
-  function processAndShowResults() {
+  function processAndShowBehanceResults() {
     var data = "";
+    var keys = ['url', 'first_name', 'last_name', 'location', 'fields', 'thumbs_ups', 'views'];
+    for (index in profiles) {
+      profile = profiles[index];
+      data += JSONToCSV(keys, profile);
+    }
+    generateDownloadLink(data);
+  }
+
+  function processAndShowGitHubResults() {
+    var data = "";
+    var keys = ['url', 'name', 'email']
     for (page_no in profiles) {
       profiles[page_no].map(function(profile) {
-        data += JSONToCSV(profile);
+        data += JSONToCSV(keys, profile);
       });
     }
     generateDownloadLink(data);
   }
 
-  function JSONToCSV(object) {
-    var keys = ['url', 'name', 'email']
+  function JSONToCSV(keys, object) {
     var output = "";
     var i;
 
@@ -140,13 +177,14 @@ SITBOT_EXTENSION = (function() {
 
   function injectContentScripts() {
       chrome.tabs.executeScript(null, {file: "jquery.min.js"});
-      chrome.tabs.executeScript(null, {file: "sitbot.js"});
+      chrome.tabs.executeScript(null, {file: "GitHubScraper.js"});
   }
 
   return {
     init: function() {
       $('#github-form').submit(githubSearch);
-      $('#scrape-button').click(startScraping);
+      $('#scrape-github').click(startScraping);
+      $('#scrape-behance').click(startScraping);
     }
   }
 });

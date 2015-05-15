@@ -4,7 +4,7 @@
 
 ## Download
 
-[Click here](http://cl.ly/arfU) to download the latest version.
+[Click here](http://cl.ly/az1u) to download the latest version.
 
 ## Installation
 
