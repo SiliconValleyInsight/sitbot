@@ -23,7 +23,7 @@ SITBOT_EXTENSION = (function() {
         if (key == 's'){
           args[key] = value;
         } else {
-          url += encodeURIComponent(key + ':' + value + ' ');
+          url += encodeURIComponent(key + ':"' + value + '" ');
         }
       }
     })
