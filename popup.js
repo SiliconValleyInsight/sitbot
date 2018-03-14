@@ -23,7 +23,7 @@ SITBOT_EXTENSION = (function() {
         if (key == 's'){
           args[key] = value;
         } else {
-          url += encodeURIComponent(key + ':"' + value + '" ');
+          url += encodeURIComponent(key + ':' + value + ' ');
         }
       }
     })
@@ -152,7 +152,7 @@ SITBOT_EXTENSION = (function() {
 
   function processAndShowGitHubResults() {
     var data = "";
-    var keys = ['url', 'name', 'email']
+    var keys = ['name', 'description', 'email', 'url', 'location']
     for (page_no in profiles) {
       profiles[page_no].map(function(profile) {
         data += JSONToCSV(keys, profile);
@@ -167,7 +167,7 @@ SITBOT_EXTENSION = (function() {
 
     for (i = 0; i < keys.length; i++) {
       var key = keys[i];
-      output += '\"' + object[key] + '\"' +','
+      output += '\"' + object[key] + '\"'
     }
 
     output += '\n';

@@ -39,23 +39,22 @@ SITBOT_GITHUB_CRAWLER = (function () {
     });
   }
 
-  function scrapeProfiles(port) {
-    var profiles = $('.user-list-item');
-    var profs = []
+function scrapeProfiles(port) {
+  var profiles = $('.user-list-item');
+  var profs = []
 
-    $.each(profiles, function(index, prof) {
-      prof = $(prof);
-      var p = {};
-      p.email = prof.find('.email').text();
-      prof.find('.user-list-meta').remove();
-      p.username = prof.find('.user-list-info a').remove().text();
-      p.name = $.trim(prof.find('.user-list-info').text());
-      p.url = 'http://github.com/' + p.username
-      profs.push(p);
-    })
-    return profs;
-  }
-
+  $.each(profiles, function(index, prof) {
+    prof = $(prof);
+    var p = {};
+    p.name = $.trim(prof.find('.f4').text().replace(/\s+/g,' ').trim());
+    p.description = $.trim(prof.find('.f5').text().replace(/\s+/g,' ').trim());
+    p.email = prof.find('.muted-link').text();  
+    p.location = $.trim(prof.find('.user-list-meta').text().replace(prof.find('.muted-link').text(),' ').replace(/\s+/g,' ').trim());
+    p.url = 'http://github.com/' + $.trim(prof.find('.d-flex a').text().replace(prof.find('.muted-link').text(),' ').trim());  
+    profs.push(p);
+  })
+  return profs;
+}
   return {
     init: function() {
       scrapePage();
