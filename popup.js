@@ -142,7 +142,7 @@ SITBOT_EXTENSION = (function() {
 
   function processAndShowBehanceResults() {
     var data = "";
-    var keys = ['url', 'first_name', 'last_name', 'location', 'fields', 'thumbs_ups', 'views'];
+    var keys = ['url', 'first_name', 'last_name', 'location','stats'];
     for (index in profiles) {
       profile = profiles[index];
       data += JSONToCSV(keys, profile);
