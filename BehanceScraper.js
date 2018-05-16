@@ -1,21 +1,17 @@
 SITBOT_BEHANCE_CRAWLER = (function () {
 
   function scrapeResults(port) {
-    var profiles = $('.user-row');
+    var profiles = $('.rf-profile-row');
     var profs = [];
     $.each(profiles, function(index, profile) {
       profile = $(profile);
       var p = {};
-      var names = profile.find('.user-name').text().split(' ');
+      var names = profile.find('.rf-profile-row__name').text().split(' ');
       p.last_name = names.splice(1).join(' ');
       p.first_name = names[0];
-      p.location = profile.find('.location-link').text();
-      p.fields = profile.find('.field-link').map(function(index, el) {
-         return el.innerText;
-      }).toArray().join(', ');
-      p.url = profile.find('.user-name').attr('href');
-      p.thumbs_ups = profile.find('.cover-stat-appreciations').text().trim();
-      p.views = profile.find('.cover-stat-views').text().trim();
+      p.location = profile.find('.rf-profile-row__address').text();
+      p.url = profile.find('.rf-avatar').attr('href');
+      p.stats = profile.find('.rf-profile-row__stats-item').text().replace(/\s+/g,'"').trim();
       profs.push(p);
     });
 
