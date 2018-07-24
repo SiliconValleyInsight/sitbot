@@ -1,5 +1,3 @@
-*Update as of July 24, 2018: Google Chrome currently does not let 3rd party Chrome extensions work in its browser. The only way we can make this extension work is to upload it to the Google Chrome Extension Store.* 
-
 # sitbot
 
 ![sitbot screenshot](http://f.cl.ly/items/3h2I3f1t303T3Z2X3M1D/Screen%20Shot%202015-05-05%20at%2012.22.05%20AM.png)
@@ -8,13 +6,17 @@
 
 [Click here](http://cl.ly/arfU) to download the latest version.
 
-## Installation
+## Installation (for Google Chrome Version 67.0.3396.99)
 
-1. Download the extension. It will be saved as `sitbot.crc`
+1. Download the extension. It will be saved as `sitbot.crx`
 
-2. Open Chrome and go to [chrome://extensions/](chrome://extensions/)
+2. Go to chrome://extensions/ and check the box for Developer mode in the top right. Refresh.
 
-3. Click and drag the `sitbot.crx` file into the Chrome extensions page
+3. Use a [CRX Extractor app](http://crxextractor.com/) to unpack the CRX file and turn it into a ZIP file.
+
+4. Locate the ZIP file on your computer and unzip it.
+
+5. Go back to the chrome://extensions/ page and click the **LOAD UNPACKED** button and select the unzipped folder for your extension to install it.
 
 ## Usage
 
