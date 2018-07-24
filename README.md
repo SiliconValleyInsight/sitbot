@@ -1,3 +1,5 @@
+*Update as of July 24, 2018: Google Chrome currently does not let 3rd party Chrome extensions work in its browser. The only way we can make this extension work is to upload it to the Google Chrome Extension Store.* 
+
 # sitbot
 
 ![sitbot screenshot](http://f.cl.ly/items/3h2I3f1t303T3Z2X3M1D/Screen%20Shot%202015-05-05%20at%2012.22.05%20AM.png)
