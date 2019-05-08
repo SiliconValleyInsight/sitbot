@@ -151,8 +151,9 @@ SITBOT_EXTENSION = (function() {
   }
 
   function processAndShowGitHubResults() {
-    var data = "";
-    var keys = ['name', 'description', 'email', 'url', 'location']
+    var keys = ['name', 'description', 'email', 'url', 'location'];
+    var data = keys + '\n';
+
     for (page_no in profiles) {
       profiles[page_no].map(function(profile) {
         data += JSONToCSV(keys, profile);
@@ -163,11 +164,13 @@ SITBOT_EXTENSION = (function() {
 
   function JSONToCSV(keys, object) {
     var output = "";
-    var i;
 
-    for (i = 0; i < keys.length; i++) {
+    for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
-      output += '\"' + object[key] + '\"'
+      var value = object[key].replace(/\,/g,"");
+
+      if (output != '') output += ','
+      output += value
     }
 
     output += '\n';
