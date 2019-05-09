@@ -4,7 +4,7 @@
 
 ## Download
 
-[Click here](http://cl.ly/arfU) to download the latest version.
+[Click here](https://drive.google.com/file/d/1hwcPKlLAEhk2HilwQUyZE6hfla9tSvGo/view?usp=sharing) to download the latest version.
 
 ## Installation (for Google Chrome Version 67.0.3396.99)
 
