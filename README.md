@@ -8,15 +8,13 @@
 
 ## Installation (for Google Chrome Version 67.0.3396.99)
 
-1. Download the extension. It will be saved as `sitbot.crx`
+1. Download the extension file by clicking `download` then `Download ZIP` on the upper right of the page.
 
 2. Go to chrome://extensions/ and check the box for Developer mode in the top right. Refresh.
 
-3. Use a [CRX Extractor app](http://crxextractor.com/) to unpack the CRX file and turn it into a ZIP file.
+3. Locate the ZIP file on your computer and unzip it.
 
-4. Locate the ZIP file on your computer and unzip it.
-
-5. Go back to the chrome://extensions/ page and click the **LOAD UNPACKED** button and select the unzipped folder for your extension to install it.
+4. Go back to the chrome://extensions/ page and click the **LOAD UNPACKED** button and select the unzipped folder for your extension to install it.
 
 ## Usage
 
